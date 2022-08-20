@@ -1,0 +1,86 @@
+{% extends 'auth_app/basic.html' %}
+{% load static %}
+{% load myfilter %}
+
+{% block title %}
+Registraction
+{% endblock title %}
+
+{% block css %}
+<style>
+    body {
+        background-color: aqua;
+    }
+
+    .errorlist {
+        color: #f51414;
+    }
+
+    .register-form {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        margin-top: 40px;
+        padding: 20px;
+        background-color: rgb(1, 9, 15);
+        color: antiquewhite;
+        border-top: #2c08f7;
+        border-radius: 5px;
+    }
+
+    .mainheading {
+        text-align: center;
+    }
+
+    /* .main-area{
+        display: flex;
+        align-items: center;
+        /* background-color: aqua; */
+    /* } */
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container my-5 main-area ">
+    <div class="register-form">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <!-- {{form.as_p}} -->
+            {{ form.non_field_errors }}
+
+            <h2 class="mainheading">Crypto Lover</h2>
+            <h4 class="mainheading">SignUp</h4>
+
+            <label for="id_name" class="login-labels my-2">Name*</label>
+            {{ form.username.errors }}
+            {{ form.username|addclass:'form-control' |addplaceholder:'Enter Name*'}}
+            <label for="id_email" class="login-labels my-2">Email Address*</label>
+            {{ form.email.errors }}
+            {{ form.email|addclass:'form-control' |addplaceholder:'Enter Email Address*'}}
+
+
+            <label for="id_password1" class="login-labels my-2">Password*</label>
+            {{ form.password1.errors }}
+            {{ form.password1|addclass:'form-control' |addplaceholder:'Enter Password*'}}
+            <label for="id_password2" class="login-labels my-2">Password Again*</label>
+            {{ form.password2.errors }}
+            {{ form.password2|addclass:'form-control' |addplaceholder:'Enter Password Again*'}}
+            <button type="submit" class="btn btn-primary my-2">Signup</button>
+        </form>
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+           
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock body %}

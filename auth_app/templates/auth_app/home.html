@@ -1,0 +1,22 @@
+{% extends 'auth_app/basic.html' %}
+
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+
+<h1>Home Page</h1>
+
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+           
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+{% endblock body %}

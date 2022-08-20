@@ -1,0 +1,129 @@
+{% extends 'auth_app/basic.html' %}
+
+
+
+{% block title %}
+Main Page
+
+{% endblock title %}
+
+{% block css %}
+<style>
+    body {
+        background-color: rgb(15, 19, 19);
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+
+    <table class=" table table-dark  table-hover">
+        <thead>
+            <tr>
+
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Price($)</th>
+                <th scope="col">Market Cap($)</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if data %}
+            {% for obj in data %}
+            <tr>
+                <td id="{{obj.id}}-img"><img src="{{obj.image}}" height="60" alt="btc"></td>
+                <td id="{{obj.id}}-name" class="align-middle">{{obj.name}}</td>
+                <td id="{{obj.id}}-rank" class="align-middle">{{obj.market_cap_rank}}</td>
+                <td id="{{obj.id}}-price" class="align-middle">{{obj.current_price}}</td>
+                <td id="{{obj.id}}-mcap" class="align-middle">{{obj.market_cap}}</td>
+
+
+            </tr>
+
+
+
+            {% endfor %}
+
+            {% else %}
+            <h3>Nothing Here.......</h3>
+
+
+            {% endif %}
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+{% endblock body %}
+
+
+{% block js %}
+
+
+
+
+
+
+<script>
+    var ws = new WebSocket('ws://127.0.0.1:8000/ws/asc/')
+
+
+    ws.onopen = function () {
+        console.log('Websocket connection Open....')
+        // ws.send(JSON.stringify({"msg":"Hi from client...."}))
+    }
+    ws.onmessage = function (event) {
+        console.log('Message Received from server....')
+        // console.log(typeof(event.data))
+        const data = JSON.parse(event.data)
+        // console.log(typeof(data.message))
+        // console.log(data.message)
+
+        for (const [key, value] of Object.entries(data)) {
+            // console.log(`${key} : ${value}`)
+            console.log(value['name'])
+            // console.log(value['Id'])
+            // console.log(key)
+
+            const id = value['Id']
+            // console.log(id)
+            // console.log(data.message['price'])
+            document.getElementById(`${id}-name`).innerText = value['name'];
+            document.getElementById(`${id}-img`).src = value['image'];
+            document.getElementById(`${id}-rank`).innerText = value['rank'];
+            document.getElementById(`${id}-price`).innerText = value['price'];
+            document.getElementById(`${id}-mcap`).innerText = value['mcap'];
+
+        }
+
+    }
+
+
+
+
+
+
+
+    ws.onerror = function (event) {
+        console.log('Web Socket Error occur....', event.data)
+        console.log(typeof (event.data))
+
+    }
+    ws.onclose = function () {
+        console.log('Websocket connection closed....');
+    }
+
+
+
+
+</script>
+
+{% endblock js %}

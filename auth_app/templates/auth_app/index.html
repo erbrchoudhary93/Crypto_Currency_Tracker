@@ -1,0 +1,22 @@
+{% extends 'auth_app/basic.html' %}
+
+
+{% block title %}Crypto Market{% endblock title %}
+
+{% block body %}
+<a href="{% url 'pchange' %}"></a>
+<h1>Index Page</h1>
+
+{% if messages %}
+        <ul>
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+           
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+{% endblock body %}
