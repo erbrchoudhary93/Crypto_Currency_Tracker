@@ -12,10 +12,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE','crypto_app.settings')
 
 app=Celery('crypto_app')
 
-app.autodiscover_tasks()
+
 # celery beat settings
 app.conf.beat_schedule = {
-    'add-every-57-seconds': {
+    'add-every-58-seconds': {
         'task': 'app.task.get_crypto_data',
         'schedule': 58.0,
        
@@ -33,7 +33,7 @@ app.config_from_object(settings,namespace='CELERY')
 
 
 
-
+app.autodiscover_tasks()
 
 # # load task from all registerd django app config
 

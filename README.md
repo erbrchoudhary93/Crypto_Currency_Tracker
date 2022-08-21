@@ -7,7 +7,7 @@
 
 ## First Install Required Package
 ```cmd
-pip install -r requirment.txt
+pip install -r requirments.txt
 ```
 
 ## For migration Run command
@@ -159,7 +159,7 @@ app=Celery('crypto_app')
 # celery beat settings
 app.conf.beat_schedule = {
     'add-every-59-seconds': {
-        'task': 'app.task.create_test_object',
+        'task': 'app.task.get_crypto_data',
         'schedule': 59.0,
        
     },
