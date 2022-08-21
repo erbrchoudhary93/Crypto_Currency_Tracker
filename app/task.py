@@ -9,8 +9,8 @@ from crypto_app.celery import app
 
   
       
-@shared_task(bind=True)
-def get_crypto_data(self):
+@app.task
+def get_crypto_data():
     url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     data = requests.get(url).json()
     for item in data:
@@ -35,9 +35,9 @@ def get_crypto_data(self):
         
         
 
-@app.task
-def create_test_object():
-    get_crypto_data.delay()
+# @app.task
+# def create_test_object(self):
+#     get_crypto_data.delay()
     
         
         

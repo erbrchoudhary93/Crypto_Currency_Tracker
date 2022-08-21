@@ -1,15 +1,6 @@
 
 from django.shortcuts import render
 import requests
-from celery.schedules import crontab
-from django.http import HttpResponse
-from .task import create_test_object
-from celery import shared_task
-from .models import Test
-from django_celery_beat.models import PeriodicTask,CrontabSchedule
-import json
-from celery import Celery
-from celery.schedules import crontab
 from django.contrib.auth.decorators import login_required
 
 
